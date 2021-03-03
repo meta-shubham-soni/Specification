@@ -8,31 +8,33 @@ public class Main {
 		boolean flag = true;
 
 		while(flag == true){
-		    int in;
+		    String in;
 
 		    System.out.println("1. String Driver");
 		    System.out.println("2. Marksheet Driver");
 		    System.out.println("3. Area Driver");
 		    System.out.println("4. Exit");
 		    
-		    in = sc.nextInt();
-		    
-		    if(in == 1){
-		    	stringDriver();
-		    }
-		    else if(in == 2){
-		    	marksheetDriver();
-		    }
-		    else if(in == 3){
-		    	areaDriver();
-		    }
-		    else if(in == 4){
-		        
-		    	flag = false;
-		    }
-
-		    else {
-		    	System.out.println("Enter valid choice");
+		    in = sc.nextLine();
+		    if(InputValidator.isInt(in)){
+		    	int input = Integer.parseInt(in);
+			    if(input == 1){
+			    	stringDriver();
+			    }
+			    else if(input == 2){
+			    	marksheetDriver();
+			    }
+			    else if(input == 3){
+			    	areaDriver();
+			    }
+			    else if(input == 4){
+			        
+			    	flag = false;
+			    }
+	
+			    else {
+			    	System.out.println("Enter valid choice");
+			    }
 		    }
 		}
 	}
@@ -57,12 +59,26 @@ public class Main {
 	public static void marksheetDriver(){
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter number of students");
-		int n = sc.nextInt();
+		String size = sc.nextLine();
+		if(!InputValidator.isInt(size)){
+			System.out.println("Please enter a valid input!");
+			
+			return;
+		}
+		int n = Integer.parseInt(size);
 		float[] grades = new float[n];
 		System.out.println("Enter grades of all students");
 		for(int i=0;i<n;i++){
-			float t = sc.nextFloat();
-			grades[i] = t;
+			String in = sc.nextLine();
+			
+			if(InputValidator.isFloat(in)){
+				float t = Float.parseFloat(in);
+				grades[i] = t;
+			}
+			else{
+				System.out.println("Please enter a valid input!");
+				i--;
+			}
 		}
 		
 		Marksheet m = new Marksheet();
@@ -80,7 +96,7 @@ public class Main {
 		Scanner sc = new Scanner(System.in);
 		Area a = new Area();
 		while(true){
-			int in;
+			String choice;
 
 		    System.out.println("1. Find triange area");
 		    System.out.println("2. Find rectange area");
@@ -88,29 +104,46 @@ public class Main {
 		    System.out.println("4. Find circle area");
 		    System.out.println("5. Exit");
 		    
-		    in = sc.nextInt();
+		    choice = sc.nextLine();
+		    if(!InputValidator.isInt(choice))
+		    	continue;
 		    
+		    int in = Integer.parseInt(choice);
 		    if(in == 1){
 		    	System.out.println("Enter base & height:-");
-		    	double b = sc.nextDouble();
-		    	double h = sc.nextDouble();
-		    	System.out.println(a.triangle(b, h));
+		    	String b = sc.nextLine();
+		    	String h = sc.nextLine();
+		    	if(InputValidator.isDouble(b) && InputValidator.isDouble(h)){
+			        double base = Double.parseDouble(b);
+			        double height = Double.parseDouble(h);
+		    		System.out.println(a.triangle(base, height));
+		    	}
 		    }
 		    else if(in == 2){
-		    	System.out.println("Enter length & breadth:-");
-		    	double l = sc.nextDouble();
-		    	double b = sc.nextDouble();
-		    	System.out.println(a.rectangle(l, b));
+		    	System.out.println("Enter Length & Breadth:-");
+		    	String l = sc.nextLine();
+		    	String b = sc.nextLine();
+		    	if(InputValidator.isDouble(l) && InputValidator.isDouble(b)){
+			        double length = Double.parseDouble(l);
+			        double breadth = Double.parseDouble(b);
+		    		System.out.println(a.rectangle(length, breadth));
+		    	}
 		    }
 		    else if(in == 3){
 		    	System.out.println("Enter side:-");
-		    	double s = sc.nextDouble();
-		    	System.out.println(a.square(s));
+		    	String s = sc.nextLine();
+		    	if(InputValidator.isDouble(s)){
+		    		double side = Double.parseDouble(s);
+		    		System.out.println(a.square(side));
+		    	}
 		    }
 		    else if(in == 4){
 		    	System.out.println("Enter radius:-");
-		    	double r = sc.nextDouble();
-		    	System.out.println(a.Circle(r));
+		    	String r = sc.nextLine();
+		    	if(InputValidator.isDouble(r)){
+		    		double radius = Double.parseDouble(r);
+		    		System.out.println(a.Circle(radius));
+		    	}
 		    }
 		    else if(in == 5){
 		        
